@@ -2,11 +2,16 @@ import { NavLink } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import logo from '../../../assets/image/logo.png'
 import Container from "../Container/Container";
-import { useState } from "react";
 import Profile from "../Profile/Profile";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../Provider/AuthContext";
+
 
 const Navbar = () => {
     const [isProfileView, setIsProfileView] = useState(false)
+    const {user} = useContext(AuthContext)
+
+
     const navlinks = <> 
         <li><NavLink to={"/"} style={({ isActive }) => {
             return {
@@ -50,9 +55,14 @@ const Navbar = () => {
                 </div>
                 <div className="relative">
                     <div onClick={() => setIsProfileView(!isProfileView)}>
-                        <FaUserCircle size={40}/>
+                        {
+                            user? <div className="h-14 w-14">
+                                 <img src={user?.photoURL} alt="user photo" className="w-full h-full object-cover rounded-full" />
+                            </div>:
+                            <FaUserCircle size={40}/>
+                        }
                     </div>
-                    <div className="absolute right-0 top-12">
+                    <div className="absolute right-0 top-16 overflow-hidden z-10 bg-white">
                         {
                             isProfileView && <Profile/>
                         }

@@ -20,6 +20,7 @@ const router = createBrowserRouter([
             {
                 path: "/contest",
                 element: <AllContest/>
+                
             },
             {
                 path:"/course",

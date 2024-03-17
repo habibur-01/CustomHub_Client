@@ -3,7 +3,7 @@ import { AiOutlineCamera } from "react-icons/ai";
 import { CiLock, CiUnlock } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ImgUpload } from "../../api/ImgUpload";
 import { AuthContext } from "../../Provider/AuthContext";
 import { updateProfile } from "firebase/auth";
@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 const Signup = () => {
     const [isPassView, setIsPassView] = useState(false)
     const { createUser } = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const handleSignUp = async (e) => {
 
@@ -47,6 +48,7 @@ const Signup = () => {
                             
                             if (response?.data?.acknowledged === true) {
                                  toast('User added successfully')
+                                 navigate("/signin")
                             }
                         })
                         .catch(error => {
@@ -79,7 +81,7 @@ const Signup = () => {
                     <div className="flex flex-col space-y-4">
                         <label htmlFor="email">Your photo</label>
                         <div className="inputField inline-flex items-center relative">
-                            <input type="file" name="photo" id="photo" placeholder="" accept="image/jpg, image/png" />
+                            <input type="file" name="photo" id="photo" placeholder="" accept="image/jpeg, image/png" />
                             <div className="absolute right-2">
                                 <AiOutlineCamera size={20} />
                             </div>
