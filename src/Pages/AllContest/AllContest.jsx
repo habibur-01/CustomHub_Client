@@ -19,7 +19,7 @@ const AllContest = () => {
             })
 
     }, [])
-    console.log(contestData)
+    // console.log(contestData)
     return (
         <div>
             <Container>

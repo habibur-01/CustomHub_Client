@@ -6,6 +6,8 @@ import Signin from "../Pages/SignIn/Signin";
 import Signup from "../Pages/SignUp/Signup";
 import AllContest from "../Pages/AllContest/AllContest";
 import Courses from "../Pages/Courses/Courses"
+import ContestDetails from "../Pages/ContestDetails/ContestDetails";
+import Payment from "../Pages/Payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
                 path: "/contest",
                 element: <AllContest/>
                 
+            },
+            {
+                path: "/contest/:_id",
+                element: <ContestDetails/>
+            },
+            {
+                 path:"/payment",
+                 element:<Payment/>
             },
             {
                 path:"/course",

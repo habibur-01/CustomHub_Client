@@ -19,9 +19,9 @@ const Banner = () => {
 
     return (
         <Container>
-            <div className='w-full h-[700px] bg-opacity-5' style={bgPhoto}>
-                <div className='w-full h-full flex justify-center flex-col items-center gap-10 banner' style={bgGradient}>
-                    <div className='brightness-90 text-center opacity-100 space-y-4 bannerText '>
+            <div className='w-full h-[700px] ' style={bgPhoto}>
+                <div className='w-full h-full flex justify-center flex-col items-center gap-10 ' style={bgGradient}>
+                    <div className='brightness-80 text-center space-y-4 bannerText  '>
                         <div className='inline-flex items-center  '><hr className='h-[2px] w-16 m-auto border-none bg-[#9e2cbf]' /><span className='uppercase px-6 font-bold'>Enjoy the ultimate</span> <hr className='h-[2px] w-16 m-auto bg-[#9e2cbf] border-none' /></div>
                         <h1 className='uppercase text-5xl  text-bold'>Expperience of Compititon</h1>
                     </div>

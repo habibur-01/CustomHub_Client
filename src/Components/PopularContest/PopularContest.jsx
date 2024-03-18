@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 import SectionHeader from "../SharedComponent/Header/SectionHeader";
 import Card from "../SharedComponent/Card/Card";
 import Container from "../SharedComponent/Container/Container";
+import { axiosSecure } from "../../api/axiosSecure";
 
 
 const PopularContest = () => {
     const [contestData, setContestData] = useState([])
 
     useEffect(() => {
-        fetch("/contest.json")
-            .then(res => res.json())
-            .then(data => setContestData(data))
+        axiosSecure.get("/contest")
+            .then(response => setContestData(response.data))
+            .catch(error => console.log(error))
     }, [])
-    console.log(contestData)
+    // console.log(contestData)
     return (
         <Container>
             <div>
