@@ -14,6 +14,8 @@ import PrivateRoute from "../Components/SharedComponent/PrivateRoute"
 import WinningContest from "../Pages/Dashboard/WinningContest/WinningContest";
 import MyProfile from "../Pages/Dashboard/MyProfile/MyProfile";
 import AddContest from "../Pages/Dashboard/Creator/AddContest";
+import MyCreation from "../Pages/Dashboard/Creator/MyCreation";
+import UpdateContest from "../Pages/Dashboard/Creator/UpdateContest";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
                    {
                     path:"/dashboard/addcontest",
                     element: <PrivateRoute><AddContest/></PrivateRoute>
+                   },
+                   {
+                    path:"/dashboard/mycontest",
+                    element: <PrivateRoute><MyCreation/></PrivateRoute>
+                   },
+                   {
+                    path:"/dashboard/mycontest/:_id",
+                    element: <PrivateRoute><UpdateContest/></PrivateRoute>
                    },
                 ]
             },

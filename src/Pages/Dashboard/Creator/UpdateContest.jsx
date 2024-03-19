@@ -1,13 +1,16 @@
 
 import { useContext, useState } from "react";
-import { AuthContext } from "../../../Provider/AuthContext";
-import { ImgUpload } from "../../../api/ImgUpload";
 import { axiosSecure } from "../../../api/axiosSecure";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../../Provider/AuthContext";
+import { useLocation } from "react-router-dom";
 
 
-const AddContest = () => {
+const UpdateContest = () => {
     const { user } = useContext(AuthContext)
+    const location = useLocation()
+    const contest = location?.state
+    console.log(location)
     const [contestType, setContestType] = useState('');
     const handleContestTypeChange = (event) => {
         setContestType(event.target.value);
@@ -25,30 +28,28 @@ const AddContest = () => {
         const contestName = form.name.value
         const type = contestType
         const description = form.description.value
-        const taskInstruction = form.instruction.value
+        const taskInstructions = form.instruction.value
         const endDate = form.endDate.value
         const price = form.price.value
         const prize = form.prize.value
-        const img = form.image.files[0]
-        const image = await ImgUpload(img)
-        const userImage = image?.data?.display_url
+        
+        
 
-        const addContestgData = { contestName, contestType:type, description, taskInstruction, image:userImage, endDate, price, prize , creator:user?.email }
-        console.log(addContestgData)
+        const updateContestData = { contestName, contestType: type, description, taskInstructions,  endDate, price, prize, creator: user?.email }
+        // console.log(addContestgData)
 
-        await axiosSecure.post("/contest", addContestgData)
-        .then(response => {
-            console.log('Contest added successfully:', response.data);
+        try {
+            // Upload new photo if provided
             
-            if (response?.data?.acknowledged === true) {
-                 toast('Contest added successfully')
-                 
-            }
-        })
-        .catch(error => {
-            console.error('Error adding user:', error);
-            toast('Error adding user')
-        });
+
+            // Send PATCH request to update user data
+            await axiosSecure.patch(`/contest/${contest?._id}`, updateContestData);
+
+            toast('contest data updated successfully!');
+        } catch (error) {
+            console.error('Error updating contest data:', error);
+            // Handle error, show error message to user, etc.
+        }
 
 
     }
@@ -62,7 +63,7 @@ const AddContest = () => {
                         <label className="label">
                             <span className="label-text">Contest Name</span>
                         </label>
-                        <input type="text" name="name" placeholder="contes name" className="input input-bordered" required />
+                        <input type="text" name="name" defaultValue={contest.contestName} placeholder="contes name" className="input input-bordered" required />
                     </div>
 
 
@@ -75,7 +76,7 @@ const AddContest = () => {
                             name="room_type"
                             id="cars"
                             value={contestType}
-                            onChange={handleContestTypeChange}
+                            onChange={handleContestTypeChange} defaultValue={contest.contestType}
                         >
                             <option value="">Select Contest Type</option>
                             <option value="business">Business Contest</option>
@@ -88,35 +89,28 @@ const AddContest = () => {
                         <label className="label">
                             <span className="label-text">Contest Description</span>
                         </label>
-                        <input type="text" name="description" placeholder="description" className="input input-bordered" required />
+                        <input type="text" name="description" defaultValue={contest.description} placeholder="description" className="input input-bordered" required />
 
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Task Instruction</span>
                         </label>
-                        <input type="text" name="instruction" placeholder="task instruction" className="input input-bordered" required />
+                        <input type="text" name="instruction" defaultValue={contest.taskInstructions} placeholder="task instruction" className="input input-bordered" required />
 
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Contest Price</span>
                         </label>
-                        <input type="text" name="price" placeholder="contest price" className="input input-bordered" required />
+                        <input type="text" name="price" defaultValue={contest.price} placeholder="contest price" className="input input-bordered" required />
 
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Prize money</span>
                         </label>
-                        <input type="text" name="prize" placeholder="prize money" className="input input-bordered" required />
-
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Image</span>
-                        </label>
-                        <input type="file" name="image" className="input input-bordered" required />
+                        <input type="text" name="prize" defaultValue={contest.prize} placeholder="prize money" className="input input-bordered" required />
 
                     </div>
 
@@ -125,7 +119,7 @@ const AddContest = () => {
                         <label className="label">
                             <span className="label-text">End date</span>
                         </label>
-                        <input type="date" name="endDate" className="input input-bordered" required />
+                        <input type="date" name="endDate" defaultValue={contest.endDate} className="input input-bordered" required />
 
                     </div>
                     <div className="form-control mt-6 col-span-2">
@@ -137,4 +131,4 @@ const AddContest = () => {
     );
 };
 
-export default AddContest;
+export default UpdateContest;

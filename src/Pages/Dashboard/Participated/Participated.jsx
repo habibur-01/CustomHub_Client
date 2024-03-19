@@ -67,7 +67,7 @@ const Participated = () => {
                                         <div className="flex items-center gap-3">
 
                                             <div>
-                                                <div className="font-bold">{data?.contesName}</div>
+                                                <div className="font-bold">{data?.contestName}</div>
 
                                             </div>
                                         </div>

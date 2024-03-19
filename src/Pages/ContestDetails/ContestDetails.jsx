@@ -56,7 +56,7 @@ const ContestDetails = () => {
                         <p className='p-3 md:p-3'>{location?.state?.description}<span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia officia natus expedita tempora quae, voluptas officiis harum sapiente animi, voluptatem quibusdam, aperiam a sequi dignissimos!</span>
                         </p>
                         <h1 className='text-3xl font-semibold p-4 border-t-rose-400 border border-r-0 border-l-0 border-b-rose-400 my-6'>Task Instruction:</h1>
-                        <p className='p-3 md:p-3'>{location?.state?.instructions}<span></span>
+                        <p className='p-3 md:p-3'>{location?.state?.taskInstructions}
                         </p>
                         <div className='mt-8 w-[300px] h-[200px] border-2 mr-4'>
                             {/* <h1 className='text-xl mt-4 font-medium'>Give your reviews</h1> */}
