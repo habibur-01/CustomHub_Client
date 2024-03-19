@@ -16,6 +16,7 @@ import MyProfile from "../Pages/Dashboard/MyProfile/MyProfile";
 import AddContest from "../Pages/Dashboard/Creator/AddContest";
 import MyCreation from "../Pages/Dashboard/Creator/MyCreation";
 import UpdateContest from "../Pages/Dashboard/Creator/UpdateContest";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 
 const router = createBrowserRouter([
     {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
                    {
                     path:"/dashboard/mycontest/:_id",
                     element: <PrivateRoute><UpdateContest/></PrivateRoute>
+                   },
+                   {
+                    path:"/dashboard/manageuser",
+                    element: <PrivateRoute><ManageUsers/></PrivateRoute>
                    },
                 ]
             },
