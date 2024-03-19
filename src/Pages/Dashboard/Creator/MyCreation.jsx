@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthContext";
 import { Link } from "react-router-dom";
+import { axiosSecure } from "../../../api/axiosSecure";
 
 
 const MyCreation = () => {
@@ -13,6 +14,16 @@ const MyCreation = () => {
         setCreateContest(res)
 
     }, [contestData, user?.email])
+
+    const handleContestDelete = (id) => {
+        axiosSecure.delete(`/contest/${id}`)
+            .then((response) => {
+                console.log('Item deleted successfully',response);
+            })
+            .catch((error) => {
+                console.error('Error deleting item:', error);
+            });
+    }
     return (
         <div>
             <div className="overflow-x-auto py-10">
@@ -62,7 +73,7 @@ const MyCreation = () => {
                                 <td>{data?.price
                                 }</td>
                                 <th className="space-x-2">
-                                    <button className="btn btn-ghost text-white btn-sm text-xs bg-red-400">Delete</button>
+                                    <button onClick={() => handleContestDelete(data._id)} className="btn btn-ghost text-white btn-sm text-xs bg-red-400">Delete</button>
                                     <Link to={`/dashboard/mycontest/${data?._id}`} state={data}><button className="btn btn-ghost text-white btn-sm text-xs bg-[#646ffc]">Update</button></Link>
                                 </th>
 
