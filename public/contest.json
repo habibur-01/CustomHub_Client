@@ -1,124 +1,141 @@
 [
-    {
+  {
       "contestName": "CodeMaster Challenge",
       "description": "Put your programming skills to the test in this intense coding competition. Solve challenging algorithmic problems and showcase your coding prowess.",
       "image": "https://i.ibb.co/KFb1JJk/Rectangle-2-4.png",
       "prize": 200,
-      "startDate": "2024-04-01",
-      "endDate": "2024-04-10"
-    },
-    {
+      "endDate": "2024-04-10",
+      "instructions": "Solve algorithmic problems and demonstrate coding skills.",
+      "contestType": "Programming",
+      "creator": "Your Organization Name",
+      "price": 100
+  },
+  {
       "contestName": "UI/UX Designathon",
       "description": "Unleash your creativity and design skills in this exciting UI/UX design contest. Create visually stunning and user-friendly interfaces to win exciting prizes.",
       "image": "https://i.ibb.co/FhPzN9d/517-DQBKFo-KL-AC-UF894-1000-QL80.jpg",
       "prize": 300,
-      "startDate": "2024-05-15",
-      "endDate": "2024-05-20"
-    },
-    {
+      "endDate": "2024-05-20",
+      "instructions": "Design visually stunning and user-friendly interfaces.",
+      "contestType": "Design",
+      "creator": "Your Organization Name",
+      "price": 100
+  },
+  {
       "contestName": "Hack4Good",
       "description": "Join forces with fellow hackers to develop innovative solutions for social good. Use your coding skills to address real-world challenges and make a positive impact.",
       "image": "https://i.ibb.co/HBw1Xh6/Rectangle-2-6.png",
       "prize": 500,
-      "startDate": "2024-06-01",
-      "endDate": "2024-06-10"
-    },
-    {
+      "endDate": "2024-06-10",
+      "taskInstructions": "Develop innovative solutions for social good using coding skills.",
+      "contestType": "Programming",
+      "creator": "Your Organization Name",
+      "price": 100
+  },
+  {
       "contestName": "Cybersecurity Challenge",
       "description": "Test your cybersecurity skills and knowledge in this thrilling competition. Identify vulnerabilities, defend against cyber threats, and emerge as the ultimate cybersecurity champion.",
       "image": "https://i.ibb.co/mC3sWBg/Rectangle-2-3.png",
       "prize": 400,
-      "startDate": "2024-07-01",
-      "endDate": "2024-07-15"
-    },
-    {
+      
+      "endDate": "2024-07-15",
+      "taskInstructions": "Identify vulnerabilities, defend against cyber threats.",
+      "contestType": "Security",
+      "creator": "Your Organization Name",
+      "price": 100
+  },
+  {
       "contestName": "Data Science Olympics",
       "description": "Participate in the ultimate data science showdown! Analyze datasets, build predictive models, and uncover valuable insights to claim the gold medal.",
       "image": "https://i.ibb.co/py4J5Bv/Rectangle-2.png",
       "prize": 600,
-      "startDate": "2024-08-01",
-      "endDate": "2024-08-20"
-    },
-    {
+      
+      "endDate": "2024-08-20",
+      "taskInstructions": "Analyze datasets, build predictive models.",
+      "contestType": "Data Science",
+      "creator": "Your Organization Name",
+      "price": 100
+  },
+  {
       "contestName": "Robotics Rumble",
       "description": "Gear up for an electrifying robotics competition! Design, build, and program robots to compete in various challenges and emerge as the robotics champion.",
       "image": "https://example.com/robotics_rumble.jpg",
       "prize": 700,
-      "startDate": "2024-09-01",
-      "endDate": "2024-09-10"
-    },
-    {
+      
+      "endDate": "2024-09-10",
+      "taskInstructions": "Design, build, and program robots for various challenges.",
+      "contestType": "Engineering",
+      "creator": "Your Organization Name",
+      "price": 100
+  },
+  {
       "contestName": "Blockchain Brawl",
       "description": "Enter the arena of blockchain technology and battle it out with your decentralized solutions. Develop innovative blockchain applications and secure victory in this intense competition.",
       "image": "https://example.com/blockchain_brawl.jpg",
       "prize": 800,
-      "startDate": "2024-10-01",
-      "endDate": "2024-10-15"
-    },
-    {
+      
+      "endDate": "2024-10-15",
+      "taskInstructions": "Develop innovative blockchain applications.",
+      "contestType": "Technology",
+      "creator": "habib0822@gmail.com",
+      "price": 100
+  },
+  {
       "contestName": "AI Showdown",
       "description": "Experience the clash of AI titans in this epic showdown! Develop AI algorithms, train models, and compete against other AI enthusiasts to claim the AI throne.",
       "image": "https://example.com/ai_showdown.jpg",
       "prize": 900,
-      "startDate": "2024-11-01",
-      "endDate": "2024-11-20"
-    },
-    {
+      
+      "endDate": "2024-11-20",
+      "taskInstructions": "Develop AI algorithms, train models.",
+      "contestType": "Artificial Intelligence",
+      "creator": "habib0822@gmail.com",
+      "price": 100
+  },
+  {
       "contestName": "Virtual Reality Quest",
       "description": "Embark on a journey into the realm of virtual reality! Develop immersive VR experiences and push the boundaries of reality in this thrilling VR adventure.",
       "image": "https://example.com/vr_quest.jpg",
       "prize": 1000,
-      "startDate": "2024-12-01",
-      "endDate": "2024-12-10"
-    },
-    {
+      
+      "endDate": "2024-12-10",
+      "taskInstructions": "Develop immersive VR experiences.",
+      "contestType": "Technology",
+      "creator": "habib0822@gmail.com",
+      "price": 100
+  },
+  {
       "contestName": "GameDev Clash",
       "description": "Enter the battlefield of game development and wage war with your game creation skills. Design captivating gameplay, stunning graphics, and addictive mechanics to win the hearts of players.",
       "image": "https://example.com/gamedev_clash.jpg",
       "prize": 1100,
-      "startDate": "2025-01-01",
-      "endDate": "2025-01-15"
-    },
-    {
+      
+      "endDate": "2025-01-15",
+      "taskInstructions": "Design captivating gameplay, stunning graphics.",
+      "contestType": "Game Development",
+      "creator": "habib0822@gmail.com",
+      "price": 100
+  },
+  {
       "contestName": "IoT Innovation Challenge",
       "description": "Ignite the IoT revolution with your innovative ideas! Develop IoT solutions, connect devices, and build a smarter world in this groundbreaking competition.",
       "image": "https://example.com/iot_innovation_challenge.jpg",
       "prize": 1200,
-      "startDate": "2025-02-01",
-      "endDate": "2025-02-20"
-    },
-    {
+      "endDate": "2025-02-20",
+      "taskInstructions": "Develop IoT solutions, connect devices.",
+      "contestType": "Technology",
+      "creator": "Your Organization Name",
+      "price": 100
+  },
+  {
       "contestName": "Quantum Computing Quest",
       "description": "Embark on a journey into the quantum realm! Develop quantum algorithms, explore quantum phenomena, and revolutionize computation in this mind-bending quest.",
-      "image": "https://example.com/quantum_computing_quest.jpg",
-      "prize": 1300,
-      "startDate": "2025-03-01",
-      "endDate": "2025-03-10"
-    },
-    {
-      "contestName": "Cloud Computing Showdown",
-      "description": "Rise to the clouds and showcase your cloud computing expertise! Architect scalable solutions, optimize performance, and dominate the cloud in this fierce competition.",
-      "image": "https://example.com/cloud_computing_showdown.jpg",
-      "prize": 1400,
-      "startDate": "2025-04-01",
-      "endDate": "2025-04-15"
-    },
-    {
-      "contestName": "AR Innovation Challenge",
-      "description": "Push the boundaries of augmented reality and unlock new dimensions of creativity! Develop AR applications, blend digital content with the real world, and shape the future of AR.",
-      "image": "https://example.com/ar_innovation_challenge.jpg",
-      "prize": 1500,
-      "startDate": "2025-05-01",
-      "endDate": "2025-05-20"
-    },
-    {
-      "contestName": "Big Data Battle",
-      "description": "Harness the power of big data and conquer the data landscape! Analyze massive datasets, extract valuable insights, and emerge victorious in this data-driven battle.",
-      "image": "https://example.com/big_data_battle.jpg",
-      "prize": 1600,
-      "startDate": "2025-06-01",
-      "endDate": "2025-06-10"
-    }
-  ]
-  
-  
+      "image": "https://example.com/vr_quest.jpg",
+      "prize": 1200,
+      "endDate": "2025-02-20",
+      "taskInstructions": "Develop IoT solutions, connect devices.",
+      "contestType": "Technology",
+      "creator": "Your Organization Name",
+      "price": 100
+  }
+]

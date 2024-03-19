@@ -15,7 +15,7 @@ const ContestDetails = () => {
     useEffect(() => {
         // Calculate remaining time
         const calculateRemainingTime = () => {
-            const regEndDate = new Date(location?.state?.startDate);
+            const regEndDate = new Date(location?.state?.endDate);
             const endDate = new Date(location?.state?.endDate);
             const now = new Date();
             const difference = regEndDate - now;
@@ -55,6 +55,9 @@ const ContestDetails = () => {
                         <h1 className='text-3xl font-semibold p-4 border-t-rose-400 border border-r-0 border-l-0 border-b-rose-400 my-6'>Contest Descriptions:</h1>
                         <p className='p-3 md:p-3'>{location?.state?.description}<span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia officia natus expedita tempora quae, voluptas officiis harum sapiente animi, voluptatem quibusdam, aperiam a sequi dignissimos!</span>
                         </p>
+                        <h1 className='text-3xl font-semibold p-4 border-t-rose-400 border border-r-0 border-l-0 border-b-rose-400 my-6'>Task Instruction:</h1>
+                        <p className='p-3 md:p-3'>{location?.state?.instructions}<span></span>
+                        </p>
                         <div className='mt-8 w-[300px] h-[200px] border-2 mr-4'>
                             {/* <h1 className='text-xl mt-4 font-medium'>Give your reviews</h1> */}
                             <img src={location?.state?.image} className="w-full h-full object-cover overflow-hidden rounded-md" alt="Contest image" />
@@ -83,10 +86,11 @@ const ContestDetails = () => {
                             </div>
                             <div className="mt-2">
                                 <h1 className='text-3xl font-bold mb-5 '>Contest Details</h1>
-                                <div className='space-y-4 font-bold'>
+                                <div className='space-y-5 font-bold'>
                                     <p className='text-base '>Contest Name:{location?.state?.contestName}</p>
                                     <p className='text-base '>Contest Prize: {location?.state?.prize} $</p>
-                                    <p className='text-base '>Start Date: {location?.state?.startDate}</p>
+                                    <p className='text-base '>Contest Price: {location?.state?.price} $</p>
+                                    
                                     <p className='text-base '>End Date: {location?.state?.endDate}</p>
 
                                     <p className='text-base '>Participant: {location?.state?.endDate}</p>
@@ -94,7 +98,7 @@ const ContestDetails = () => {
                                 <div>
                                     {
                                         timeDifference<0 ? <button disabled={nextDate} className="bg-[#646cff] px-3 py-2 mt-4 w-full h-14 font-semibold text-white text-base">Open</button>:
-                                        <Link to={"/payment"} state={{ price: location?.state?.prize, id: location?.state?._id, contestName: location?.state?.contestName }}><button className="bg-[#646cff] px-3 py-2 mt-4 w-full h-14 font-semibold text-white text-base">Registration</button></Link>
+                                        <Link to={"/payment"} state={{ price: location?.state?.price, id: location?.state?._id, contestName: location?.state?.contestName }}><button className="bg-[#646cff] px-3 py-2 mt-4 w-full h-14 font-semibold text-white text-base">Registration</button></Link>
                                     }
                                     
                                 </div>
