@@ -33,7 +33,7 @@ const AddContest = () => {
         const image = await ImgUpload(img)
         const userImage = image?.data?.display_url
 
-        const addContestgData = { contestName, contestType:type, description, taskInstruction, image:userImage, endDate, price, prize , creator:user?.email }
+        const addContestgData = { contestName, contestType:type, description, taskInstruction, image:userImage, endDate, price, prize , creator:user?.email, status:'pending' }
         console.log(addContestgData)
 
         await axiosSecure.post("/contest", addContestgData)

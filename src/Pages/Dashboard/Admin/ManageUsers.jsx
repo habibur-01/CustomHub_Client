@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { axiosSecure } from "../../../api/axiosSecure";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+
 
 
 const ManageUsers = () => {
@@ -24,6 +25,7 @@ const ManageUsers = () => {
         axiosSecure.delete(`/users/${id}`)
             .then((response) => {
                 console.log('Item deleted successfully',response);
+                toast('user deleted successfully')
             })
             .catch((error) => {
                 console.error('Error deleting item:', error);

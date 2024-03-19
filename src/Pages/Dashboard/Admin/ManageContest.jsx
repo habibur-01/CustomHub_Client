@@ -1,33 +1,46 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthContext";
-import { Link } from "react-router-dom";
 import { axiosSecure } from "../../../api/axiosSecure";
 import toast from "react-hot-toast";
 
 
-const MyCreation = () => {
-    const { user, contestData } = useContext(AuthContext)
-    const [createContest, setCreateContest] = useState([])
-
-    useEffect(() => {
-        const res = contestData.filter(data => data?.creator === user?.email)
-        console.log(res)
-        setCreateContest(res)
-
-    }, [contestData, user?.email])
+const ManageContest = () => {
+    const { contestData } = useContext(AuthContext)
+    const [isconfirmed, setIsConfirmed] = useState(false)
 
     const handleContestDelete = (id) => {
         axiosSecure.delete(`/contest/${id}`)
             .then((response) => {
-                console.log('Item deleted successfully',response);
-                toast('Contest deleted successfully')
+                console.log('Item deleted successfully', response);
+                toast('Item deleted successfully')
             })
             .catch((error) => {
                 console.error('Error deleting item:', error);
             });
     }
+
+    const handleContestData = (id) => {
+        setIsConfirmed(true)
+        if (isconfirmed) {
+            try {
+                // Upload new photo if provided
+
+
+                // Send PATCH request to update user data
+                axiosSecure.patch(`/contest/${id}`, { status: 'confirmed' });
+
+                toast('contest data updated successfully!');
+            } catch (error) {
+                console.error('Error updating contest data:', error);
+                // Handle error, show error message to user, etc.
+            }
+        }
+
+    }
+
     return (
         <div>
+
             <div className="overflow-x-auto py-10">
                 <table className="table ">
                     {/* head */}
@@ -38,9 +51,11 @@ const MyCreation = () => {
                                     <input type="checkbox" className="checkbox" />
                                 </label>
                             </th>
+                            <th>Creator</th>
                             <th>Contest Name</th>
                             <th>Prize</th>
                             <th>Price</th>
+
                             <th>Action</th>
                             <th></th>
                         </tr>
@@ -48,17 +63,26 @@ const MyCreation = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            createContest.length < 0 ? <tr className="row-span-7">
+                            contestData?.length < 0 ? <tr className="row-span-7">
                                 <div className="flex h-[700px] justify-center items-center space-y-4">
                                     <h1 className="text-4xl font-bold">You don not make any  contest</h1>
                                     <p>Please make any contest first.</p>
                                 </div>
-                            </tr> : createContest.map(data => <tr key={data._id}>
+                            </tr> : contestData?.map(data => <tr key={data._id}>
                                 <th>
                                     <label>
                                         <input type="checkbox" className="checkbox" />
                                     </label>
                                 </th>
+                                <td>
+                                    <div className="flex items-center gap-3">
+
+                                        <div>
+                                            <div className="font-bold">{data?.creator}</div>
+
+                                        </div>
+                                    </div>
+                                </td>
                                 <td>
                                     <div className="flex items-center gap-3">
 
@@ -72,11 +96,10 @@ const MyCreation = () => {
 
                                     <span className="badge badge-ghost badge-sm">{data?.prize}</span>
                                 </td>
-                                <td>{data?.price
-                                }</td>
+                                <td><span className="badge badge-ghost badge-sm">{data?.price}</span></td>
                                 <th className="space-x-2">
                                     <button onClick={() => handleContestDelete(data._id)} className="btn btn-ghost text-white btn-sm text-xs bg-red-400">Delete</button>
-                                    <Link to={`/dashboard/mycontest/${data?._id}`} state={data}><button className="btn btn-ghost text-white btn-sm text-xs bg-[#646ffc]">Update</button></Link>
+                                    <button onClick={() => handleContestData(data._id)} className={`btn btn-ghost text-white  btn-sm text-xs bg-[#646ffc] ${(data?.status === 'confirmed') && 'btn-disabled'}`}>{ data?.status === 'confirmed' ? 'Confirmed':'Confirm'}</button>
                                 </th>
 
                             </tr>)
@@ -96,4 +119,4 @@ const MyCreation = () => {
     );
 };
 
-export default MyCreation;
+export default ManageContest;

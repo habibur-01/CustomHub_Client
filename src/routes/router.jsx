@@ -17,6 +17,7 @@ import AddContest from "../Pages/Dashboard/Creator/AddContest";
 import MyCreation from "../Pages/Dashboard/Creator/MyCreation";
 import UpdateContest from "../Pages/Dashboard/Creator/UpdateContest";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
+import ManageContest from "../Pages/Dashboard/Admin/ManageContest";
 
 const router = createBrowserRouter([
     {
@@ -35,11 +36,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/contest/:_id",
-                element: <ContestDetails/>
+                element: <PrivateRoute><ContestDetails/></PrivateRoute>
             },
             {
                  path:"/payment",
-                 element:<Payment/>
+                 element:<PrivateRoute><Payment/></PrivateRoute>
             },
             {
                 path:"/dashboard",
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
                    {
                     path:"/dashboard/manageuser",
                     element: <PrivateRoute><ManageUsers/></PrivateRoute>
+                   },
+                   {
+                    path:"/dashboard/managecontest",
+                    element: <PrivateRoute><ManageContest/></PrivateRoute>
                    },
                 ]
             },
