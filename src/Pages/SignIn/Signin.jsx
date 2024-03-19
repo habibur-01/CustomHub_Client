@@ -1,7 +1,7 @@
 import { MdOutlineMail } from "react-icons/md";
 import { CiLock, CiUnlock } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
-import '../SignIn/Signin.css'
+import './Signin.css'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthContext";
@@ -48,7 +48,7 @@ const Signin = () => {
 
     return (
         <div className="w-full min-h-[100vh] flex justify-center items-center">
-            <div className="2xl:w-1/3 xl:w-1/3 lg:w-2/5 md:w-1/2 sm:w-2/5 min-h-fit bg-white shadow-md rounded-md sm:border-2">
+            <div className="2xl:w-1/3 xl:w-1/3 lg:w-2/5 md:w-1/2 sm:w-2/5 min-h-[700px] bg-white shadow-md rounded-md sm:border-2">
                 <div>
                     <Link to={"/"}><button className="text-black border-[1px] bg-[white] inline-flex items-center gap-2 hover:border-none"><FaArrowLeft />Back</button></Link>
                 </div>
@@ -74,11 +74,11 @@ const Signin = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full btn">
+                        <div className="w-full btn1">
                             <button type="submit">Continue</button>
                         </div>
                     </form>
-                    <div className="btn m-2">
+                    <div className="btn1 m-2">
                         <h1 className="text-sm text-center my-4">---Sign in with another way---</h1>
                         <button onClick={handleSigninWithGoogle} className="inline-flex items-center justify-center space-x-4 bg-white googleBtn"><FcGoogle size={25} /> <span className="text-base hover:bold">Sign in with google</span></button>
                         <p className="text-xs md:text-sm mt-1">{`Don't have an account?`}<Link to={"/signup"}> <span className="text-[#646cff] font-bold">Sign up</span></Link></p>

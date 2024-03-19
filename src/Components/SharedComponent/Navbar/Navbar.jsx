@@ -31,7 +31,7 @@ const Navbar = () => {
                 color: isActive? "#646cff":"",
             };
         }}>Course</NavLink></li>
-        <li><NavLink to={"/signin"} style={({ isActive }) => {
+        <li className={`${user? 'hidden': 'block'}`}><NavLink to={"/signin"} style={({ isActive }) => {
             return {
                 fontWeight: isActive ? "bold" : "",
                 color: isActive? "#646cff":"",

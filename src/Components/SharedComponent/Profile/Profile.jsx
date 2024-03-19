@@ -8,7 +8,8 @@ import { AuthContext } from "../../../Provider/AuthContext";
 
 const Profile = () => {
     const { user, userSignOut } = useContext(AuthContext)
-    console.log(user)
+    // const[isTrue, setIsTrue] = useState(false)
+    // console.log(user)
 
     const handleSingOut = () => {
         userSignOut()
@@ -20,12 +21,12 @@ const Profile = () => {
     }
 
     return (
-        <div className="border-2 p-4 rounded-md shadow-md min-w-fit ">
-            <div className=" py-2 flex flex-row justify-between gap-6 items-center">
+        <div className="border-2 p-4 rounded-md shadow-md w-[300px] ">
+            <div className=" py-2 flex flex-row justify-around gap-6 items-center">
                 <div>
 
                     {
-                        user ? <div className="h-16 w-16">
+                        user ? <div className="h-16 w-16 rounded-full border-2 border-blue-500">
                             <img src={user?.photoURL} alt="user photo" className="w-full h-full object-cover rounded-full" />
                         </div> :
                             <FaRegUserCircle size={50} />}
@@ -52,7 +53,7 @@ const Profile = () => {
                 </div>
                 <div className="inline-flex items-center gap-4">
                     <MdOutlineDashboard />
-                    <Link to={"/dashboard"}> Dashboard</Link>
+                    <Link  to={"/dashboard"} > Dashboard</Link>
                 </div>
             </div>
             <hr className="my-4" />

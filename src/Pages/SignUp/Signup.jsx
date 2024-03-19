@@ -106,7 +106,7 @@ const Signup = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="w-full btn">
+                    <div className="w-full btn1">
                         <button type="submit">Continue</button>
                         <p className="text-xs md:text-sm mt-1">{`Don't have an account?`}<Link to={"/signin"}> <span className="text-[#646cff] font-bold">Sign in</span></Link></p>
                     </div>

@@ -15,16 +15,16 @@
     outline: none;
     
 }
-.btn button{
+.btn1 button{
     width: 100%;
     height: 50px;
     background-color: #646cff;
     color: white;
 }
-.btn button:hover{
+.btn1 button:hover{
     font-weight: bold;
 }
-.btn .googleBtn{
+.btn1 .googleBtn{
     width: 100%;
     height: 50px;
     background-color: white;

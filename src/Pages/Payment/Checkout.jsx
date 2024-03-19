@@ -12,6 +12,7 @@ const Checkout = ({ clientSecret, price, id, contestName }) => {
     const { user } = useContext(AuthContext)
     const [transactionId, setTransactionId] = useState('')
     const [error, setError] = useState('')
+    // console.log(id, contestName)
 
 
     const handleSubmit = async (event) => {
@@ -62,7 +63,7 @@ const Checkout = ({ clientSecret, price, id, contestName }) => {
         else {
             console.log('payment intent:', paymentIntent)
             if(paymentIntent.status === 'succeeded'){
-                console.log('transaction id:',paymentIntent.id)
+                // console.log('transaction id:',paymentIntent.id)
                 setTransactionId(paymentIntent.id)
 
                 const paymentData = {
@@ -124,7 +125,9 @@ const Checkout = ({ clientSecret, price, id, contestName }) => {
 };
 Checkout.propTypes = {
     clientSecret: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
+    id: PropTypes.string,
+    contestName: PropTypes.string
 }
 
 export default Checkout;

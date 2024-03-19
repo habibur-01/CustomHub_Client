@@ -8,6 +8,12 @@ import AllContest from "../Pages/AllContest/AllContest";
 import Courses from "../Pages/Courses/Courses"
 import ContestDetails from "../Pages/ContestDetails/ContestDetails";
 import Payment from "../Pages/Payment/Payment";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import Participated from "../Pages/Dashboard/Participated/Participated";
+import PrivateRoute from "../Components/SharedComponent/PrivateRoute"
+import WinningContest from "../Pages/Dashboard/WinningContest/WinningContest";
+import MyProfile from "../Pages/Dashboard/MyProfile/MyProfile";
+import AddContest from "../Pages/Dashboard/Creator/AddContest";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +37,28 @@ const router = createBrowserRouter([
             {
                  path:"/payment",
                  element:<Payment/>
+            },
+            {
+                path:"/dashboard",
+                element:<PrivateRoute><Dashboard/></PrivateRoute>,
+                children:[
+                   {
+                    path:"/dashboard/participated",
+                    element: <PrivateRoute><Participated/></PrivateRoute>
+                   },
+                   {
+                    path:"/dashboard/winning",
+                    element: <PrivateRoute><WinningContest/></PrivateRoute>
+                   },
+                   {
+                    path:"/dashboard/myprofile",
+                    element: <PrivateRoute><MyProfile/></PrivateRoute>
+                   },
+                   {
+                    path:"/dashboard/addcontest",
+                    element: <PrivateRoute><AddContest/></PrivateRoute>
+                   },
+                ]
             },
             {
                 path:"/course",

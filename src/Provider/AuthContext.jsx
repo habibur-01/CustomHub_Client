@@ -2,11 +2,14 @@ import { createContext, useEffect, useState } from 'react';
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import PropTypes from 'prop-types';
 import auth from '../Firbse/Firebase.config';
+import { axiosSecure } from '../api/axiosSecure';
 
 export const AuthContext = createContext(null)
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setloading] = useState(true)
+    const [contestData, setContestData] = useState([])
+    const [userData, setUserData] = useState([])
 
     const provider = new GoogleAuthProvider()
 
@@ -39,6 +42,23 @@ const AuthProvider = ({ children }) => {
             })
         })
     }, [])
+    
+
+    useEffect(() => {
+        axiosSecure.get("/contest")
+            .then(response => setContestData(response.data))
+            .catch(error => console.log(error))
+    }, [])
+
+    useEffect(() => {
+        axiosSecure.get(`/users/?email=${user?.email}`)
+            .then(res => {
+                setUserData(res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+
+    }, [user?.email])
 
     const authInfo = {
         user,
@@ -46,7 +66,9 @@ const AuthProvider = ({ children }) => {
         createUser,
         signInUser,
         signInWithGoogle,
-        userSignOut
+        userSignOut,
+        contestData,
+        userData
     }
     return (
         <div>

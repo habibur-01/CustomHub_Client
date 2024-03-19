@@ -23,7 +23,7 @@ const AllContest = () => {
     return (
         <div>
             <Container>
-                <h1 className="text-2xl font-bold py-4 border-b-4 mb-6">Al Contest</h1>
+                <h1 className="text-2xl font-bold py-4 border-b-4 mb-6">All Contest</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6 mx-5">
                     {
                         contestData.map(contest => <Card key={contest._id} contest={contest}/>)

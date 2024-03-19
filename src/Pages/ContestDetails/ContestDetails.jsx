@@ -7,7 +7,7 @@ const ContestDetails = () => {
     // const { _id } = useParams();
     const location = useLocation();
     const [timeDifference, setTimeDifference] = useState();
-    console.log(location)
+    
     // State for remaining time
     const [remainingTime, setRemainingTime] = useState(null);
     const [nextDate, setNextDate] = useState(null)
