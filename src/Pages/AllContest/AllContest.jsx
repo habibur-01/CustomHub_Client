@@ -8,6 +8,7 @@ import Card from "../../Components/SharedComponent/Card/Card";
 
 const AllContest = () => {
     const [contestData, setContestData] = useState([])
+    const [confirmedData, setConfirmedData] = useState([])
 
     useEffect(() => {
         axiosSecure.get("/contest")
@@ -19,6 +20,10 @@ const AllContest = () => {
             })
 
     }, [])
+    useEffect(() => {
+        const result = contestData.filter(data => data?.status !== 'pending')
+        setConfirmedData(result)
+    },[contestData])
     // console.log(contestData)
     return (
         <div>
@@ -26,7 +31,7 @@ const AllContest = () => {
                 <h1 className="text-2xl font-bold py-4 border-b-4 mb-6">All Contest</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6 mx-5">
                     {
-                        contestData.map(contest => <Card key={contest._id} contest={contest}/>)
+                        confirmedData.map(contest => <Card key={contest._id} contest={contest}/>)
                     }
                 </div>
             </Container>

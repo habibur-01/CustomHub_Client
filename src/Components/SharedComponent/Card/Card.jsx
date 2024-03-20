@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 const Card = ({ contest }) => {
-    const { _id, contestName, description, image, prize, price, endDate, instructions} =contest
+    const { _id, contestName, description, image, prize, price, endDate, taskInstructions} =contest
     return (
         <div className="w-[320px] bg-slate-100 border-2 shadow-md rounded-lg">
 
@@ -22,7 +22,7 @@ const Card = ({ contest }) => {
 
                     }
                 </p>
-                <Link to={`/contest/${_id}`} state={{_id, contestName, description, image, prize, price, endDate, instructions}}><button className="bg-[#646cff] px-3 py-2 mt-4 font-semibold text-white text-base">Details</button></Link>
+                <Link to={`/contest/${_id}`} state={{_id, contestName, description, image, prize, price, endDate, taskInstructions}}><button className="bg-[#646cff] px-3 py-2 mt-4 font-semibold text-white text-base">Details</button></Link>
 
             </div>
         </div>

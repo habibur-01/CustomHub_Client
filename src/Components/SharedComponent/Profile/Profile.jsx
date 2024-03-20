@@ -34,7 +34,7 @@ const Profile = () => {
                 <div className="space-y-2">
                     <h1 className="text-lg font-medium">{user ? user?.displayName : "Jhon Doe Park"}</h1>
                     <h2>{user ? user?.email : "exampleuser123@gmail.com"}</h2>
-                    <button className="bg-[#646cff] p-3  font-semibold text-white text-base">Edit profile</button>
+                    <Link to={"/dashboard/myprofile"}><button className="bg-[#646cff] p-3  font-semibold text-white text-base">Edit profile</button></Link>
                 </div>
             </div>
             <hr className="my-4" />
