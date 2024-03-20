@@ -18,7 +18,7 @@ const Card = ({ contest }) => {
                 </div>
                 <p className="text-sm mt-2">
                     {
-                        description.slice(0, 100) + "..."
+                        description?.slice(0, 100) + "..."
 
                     }
                 </p>

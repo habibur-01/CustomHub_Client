@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { axiosSecure } from "../../../api/axiosSecure";
 import { AuthContext } from "../../../Provider/AuthContext";
+import toast from "react-hot-toast";
 
 
 
@@ -22,6 +23,7 @@ const SubmittedContest = () => {
         axiosSecure.post("/winner", winner)
         .then(response=>{
             console.log(response.data)
+            toast('Winner added successfully')
         }).catch(error=>{
             console.log(error)
         })
@@ -50,12 +52,12 @@ const SubmittedContest = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            res.length < 0 ? <tr className="row-span-7">
+                            res?.length < 0 ? <tr className="row-span-7">
                                 <div className="flex h-[700px] justify-center items-center space-y-4">
                                     <h1 className="text-4xl font-bold">There are not any examinee</h1>
                                     <p>Please make any contest first.</p>
                                 </div>
-                            </tr> : res.map(data => <tr key={data._id}>
+                            </tr> : res?.map(data => <tr key={data._id}>
                                 <th>
                                     <label>
                                         <input type="checkbox" className="checkbox" />
