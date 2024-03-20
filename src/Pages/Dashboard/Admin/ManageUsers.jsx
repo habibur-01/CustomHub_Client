@@ -55,13 +55,13 @@ const ManageUsers = () => {
                         {/* {totalUsers.length} */}
                         {/* row 1 */}
                         {
-                            users.length < 0 ? <tr className="row-span-7">
+                            users?.length < 0 ? <tr className="row-span-7">
                                 <div className="flex h-[700px] justify-center items-center space-y-4">
                                     <h1 className="text-4xl font-bold">Here has not any usert</h1>
                                     
                                 </div>
                             </tr> : 
-                            users.map(data => <tr key={data._id}>
+                            users?.map(data => <tr key={data._id}>
                                 <th>
                                     <label>
                                         <input type="checkbox" className="checkbox" />
