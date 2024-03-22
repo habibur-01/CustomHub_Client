@@ -16,7 +16,7 @@ const Payment = () => {
 
     // console.log(id)
     useEffect(() => {
-        axiosSecure.post('/create-payment-inten', { price: amount })
+        axiosSecure.post('/create-payment-intent', { price: amount })
             .then(res => {
                 // console.log(res.data.clientSecret)
                 setClientSecret(res.data.clientSecret)
@@ -36,7 +36,7 @@ const Payment = () => {
             <h1 className="py-2 w-24 mx-auto my-6 text-center text-xl border-b-4 border-t-4 border-red-200">Payment</h1>
             <div>
                 {clientSecret && (
-                    <Elements options={options} stripe={stripePromise}>
+                    <Elements options={options} stripe={stripePromise} key={clientSecret}>
                         <Checkout clientSecret={clientSecret} price={amount} id={id} contestName={contestName}/>
                     </Elements>
                 )}

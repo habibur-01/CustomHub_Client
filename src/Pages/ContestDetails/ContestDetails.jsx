@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import win from "../../assets/image/win.jpg";
 import Container from "../../Components/SharedComponent/Container/Container";
+import { axiosSecure } from "../../api/axiosSecure";
 
 const ContestDetails = () => {
     // const { _id } = useParams();
@@ -11,6 +12,8 @@ const ContestDetails = () => {
     // State for remaining time
     const [remainingTime, setRemainingTime] = useState(null);
     const [nextDate, setNextDate] = useState(null)
+
+    const [winnerData, setWinnerData] = useState([])
 
     useEffect(() => {
         // Calculate remaining time
@@ -44,6 +47,11 @@ const ContestDetails = () => {
         return () => clearInterval(interval);
     }, [location]);
 
+    useEffect(()=>{
+        const res = axiosSecure.get(`/winner/?contestName=${location?.state?.contestName}`)
+        setWinnerData(res)
+    },[location?.state?.contestName])
+
     return (
         <Container>
             <div className="min-h-fit pb-10">
@@ -66,9 +74,12 @@ const ContestDetails = () => {
                             {/* <h1 className='text-xl mt-4 font-medium'>Give your reviews</h1> */}
                             {
                                 timeDifference < 0 ? <div>
-                                    <h1 className="text-2xl font-bold">Winner is</h1>
+                                    <h1 className="text-2xl font-bold">Winner is--</h1>
                                     <div className="mt-8 w-[300px] h-[200px] border-2 mr-4">
                                         <img src={location?.state?.image} className="w-full h-full object-cover overflow-hidden rounded-md" alt="Contest image" />
+                                    </div>
+                                    <div>
+                                        <p>{winnerData?.examinee}</p>
                                     </div>
                                 </div> : ""
                             }
@@ -93,7 +104,7 @@ const ContestDetails = () => {
                                     
                                     <p className='text-base '>End Date: {location?.state?.endDate}</p>
 
-                                    <p className='text-base '>Participant: {location?.state?.endDate}</p>
+                                    <p className='text-base '>Participant: {location?.state?.participant}</p>
                                 </div>
                                 <div>
                                     {

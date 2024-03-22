@@ -1,9 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import Container from "../../Components/SharedComponent/Container/Container";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthContext";
 import { PropTypes } from "prop-types";
 import { axiosSecure } from "../../api/axiosSecure";
+// import toast from "react-hot-toast";
 
 
 const Checkout = ({ clientSecret, price, id, contestName }) => {
@@ -12,8 +13,17 @@ const Checkout = ({ clientSecret, price, id, contestName }) => {
     const { user } = useContext(AuthContext)
     const [transactionId, setTransactionId] = useState('')
     const [error, setError] = useState('')
-    // console.log(id, contestName)
+    const [totalParticipant, setTotalParticipant] = useState(0)
+    console.log(totalParticipant)
 
+    useEffect(() => {
+        axiosSecure.get(`/contest/${id}`)
+            .then(result => {
+                setTotalParticipant(result?.data?.participant)
+            }).catch(err => {
+                console.log(err)
+            })
+    }, [id])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -47,7 +57,7 @@ const Checkout = ({ clientSecret, price, id, contestName }) => {
             console.log('[PaymentMethod]', paymentMethod);
         }
 
-        const { paymentIntent, error: consirmError } = await stripe.confirmCardPayment(clientSecret, {
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
                 billing_details: {
@@ -57,29 +67,36 @@ const Checkout = ({ clientSecret, price, id, contestName }) => {
             }
         })
 
-        if (consirmError) {
+        if (confirmError) {
             console.log('confirm error')
         }
         else {
             console.log('payment intent:', paymentIntent)
-            if(paymentIntent.status === 'succeeded'){
+            if (paymentIntent.status === 'succeeded') {
                 // console.log('transaction id:',paymentIntent.id)
                 setTransactionId(paymentIntent.id)
 
+
                 const paymentData = {
                     contestId: id,
-                    contesName: contestName,
+                    contestName: contestName,
                     name: user?.displayName,
                     email: user?.email,
                     transactionId: paymentIntent.id,
                     date: new Date(),
                     price: price,
-                    image: user?.photoURL 
+                    image: user?.photoURL
 
                 }
 
-                const res =await axiosSecure.post('/payment', paymentData);
+                const res = await axiosSecure.post('/payment', paymentData);
                 console.log(res);
+
+                const updatedTotal = totalParticipant + 1;
+                await axiosSecure.patch(`/contest/${id}`, { participant: updatedTotal });
+
+                // Update state
+                setTotalParticipant(updatedTotal);
 
             }
         }
@@ -90,36 +107,36 @@ const Checkout = ({ clientSecret, price, id, contestName }) => {
 
     return (
         <Container>
-            <div className="flex justify-center items-center w-full h-[500px]">
-                <form onSubmit={handleSubmit} className="w-1/2 ">
-                    <CardElement
-                        options={{
-                            style: {
-                                base: {
-                                    fontSize: '16px',
-                                    display: 'block',
-                                    color: '#424770',
-                                    '::placeholder': {
-                                        color: '#aab7c4',
+            <div className="flex justify-center items-center h-[500px]">
+                <form onSubmit={handleSubmit} className="w-full max-w-md p-4 bg-gray-100 shadow-md rounded-md">
+                    <label className="block mb-4">Card details</label>
+                    <div className="mb-4">
+                        <CardElement
+                            options={{
+                                style: {
+                                    base: {
+                                        fontSize: '16px',
+                                        display: 'block',
+                                        color: '#424770',
+                                        '::placeholder': {
+                                            color: '#aab7c4',
+                                        },
+                                    },
+                                    invalid: {
+                                        color: '#9e2146',
                                     },
                                 },
-                                invalid: {
-                                    color: '#9e2146',
-                                },
-                            },
-                        }} />
-
-
-                    <button className="bg-[#646cff] px-3 py-2 mt-4 w-20 h-12 font-semibold text-white text-base" type="submit" disabled={!stripe || !clientSecret || !user}>
+                            }} />
+                    </div>
+                    <button className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md disabled:bg-gray-400" type="submit" disabled={!stripe || !clientSecret || !user}>
                         Pay
                     </button>
-                    <p className="text-red-600">{error}</p>
-                    {
-                        transactionId && <p className="text-green-500 my-6">Your transaction id: {transactionId}</p>
-                    }
+                    {error && <p className="text-red-600 mt-2">{error}</p>}
+                    {transactionId && <p className="text-green-500 mt-2">Your transaction id: {transactionId}</p>}
+                    {/* {toast('Payment successfull')} */}
                 </form>
-
             </div>
+
         </Container>
     );
 };

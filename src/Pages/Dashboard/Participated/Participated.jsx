@@ -27,7 +27,7 @@ const Participated = () => {
         }
     }, [participated, user]);
 
-    console.log('registeredData', registeredData);
+    // console.log('registeredData', registeredData?.contestName);
 
     return (
         <div>
@@ -67,7 +67,7 @@ const Participated = () => {
                                         <div className="flex items-center gap-3">
 
                                             <div>
-                                                <div className="font-bold">{data?.contestName}</div>
+                                                <div className="font-bold">{`${data?.contestName}` || 'jhgjhv'} </div>
 
                                             </div>
                                         </div>

@@ -1,10 +1,39 @@
 
-import SectionHeader from "../SharedComponent/Header/SectionHeader";
-import winnerImage from "../../assets/image/Max-R_Headshot (1).jpg"; // Import winner image
+import SectionHeader from "../SharedComponent/Header/SectionHeader"; 
 import Container from "../SharedComponent/Container/Container";
-// import { contestWinner, participationCount } from "../../utils/contestData"; // Import dynamic data
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Provider/AuthContext";
+import { axiosSecure } from "../../api/axiosSecure";
+
+
 
 const ContestSection = () => {
+    const { contestData } = useContext(AuthContext)
+    const [winner, setWinner] = useState([])
+
+
+    const sortedData = contestData.sort((a, b) => {
+        if (a.endDate < b.endDate) {
+            return -1;
+        }
+        if (a.endDate > b.endDate) {
+            return 1;
+        }
+        return 0;
+    });
+
+    useEffect(() => {
+        axiosSecure('/aggregateData')
+            .then(response => {
+                setWinner(response.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    const latestTwoWinner = winner?.slice(-2);
+
+
     const bgGradient = {
         background: 'linear-gradient(to right, rgba(82,162,159,0.6), rgba(127,160,153,0.6), rgba(175,165,146,0.6), rgba(203,134,110,0.6))'
     };
@@ -20,47 +49,21 @@ const ContestSection = () => {
                         <h1 className="text-2xl font-bold pt-4 pb-2 border-b-2 mb-6">Next Contest</h1>
                         <p className="mb-4 font-medium">MOST COMPITION ARE STARTED ON SUNDAYS FROM 10 AM TO APPROXIMATELY 12 PM</p>
 
-                        <div className="space-y-2 mb-4">
-                            <div className="flex items-center gap-4  bg-slate-100 border-2">
-                                <div className="contestTime min-w-fit font-bold text-center px-4 border-2">
-                                    <p>03</p>
-                                    <p>May</p>
-                                </div>
-                                <div className="contestName px-4">
-                                    <p className="font-bold">CodeMaster Challenge</p>
-                                    <p className="text-sm">Creator: Abdus Sattar</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4  bg-slate-100 border-2">
-                                <div className="contestTime min-w-fit font-bold text-center px-4 border-2">
-                                    <p>03</p>
-                                    <p>May</p>
-                                </div>
-                                <div className="contestName px-4">
-                                    <p className="font-bold">CodeMaster Challenge</p>
-                                    <p className="text-sm">Creator: Abdus Sattar</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4  bg-slate-100 border-2">
-                                <div className="contestTime min-w-fit font-bold text-center px-4 border-2">
-                                    <p>03</p>
-                                    <p>May</p>
-                                </div>
-                                <div className="contestName px-4">
-                                    <p className="font-bold">CodeMaster Challenge</p>
-                                    <p className="text-sm">Creator: Abdus Sattar</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4  bg-slate-100 border-2">
-                                <div className="contestTime min-w-fit font-bold text-center px-4 border-2">
-                                    <p>03</p>
-                                    <p>May</p>
-                                </div>
-                                <div className="contestName px-4">
-                                    <p className="font-bold">CodeMaster Challenge</p>
-                                    <p className="text-sm">Creator: Abdus Sattar</p>
-                                </div>
-                            </div>
+                        <div className="space-y-2  mb-4">
+                            {
+                                sortedData?.slice(0, 4).map(data => <div key={data._id} className="flex items-center gap-4  bg-slate-100 border-2">
+                                    <div className="contestTime min-w-fit font-bold text-center px-4 py-2 border-2">
+                                        <p>{new Date(data?.endDate).toLocaleString('default', { day: 'numeric' })}</p>
+                                        <p>{new Date(data?.endDate).toLocaleString('default', { month: 'long' })}</p>
+
+                                    </div>
+                                    <div className="contestName px-4">
+                                        <p className="font-bold">{data?.contestName}</p>
+                                        <p className="text-sm">Creator: {data?.creator}</p>
+                                    </div>
+                                </div>)
+                            }
+
                         </div>
 
                     </div>
@@ -71,25 +74,19 @@ const ContestSection = () => {
                         <div className="winner-info flex justify-around">
 
 
-                            <div className="border-2">
-                                <div className="w-[224px] h-[226px]">
-                                    <img src={winnerImage} className="w-full h-full object-cover overflow-hidden" alt="winner image" />
-                                </div>
-                                <div className="bg-[#152229] text-white text-center py-2 hover:bg-[#7e85eb] hover:text-black">
-                                    <p className="font-bold">Alex Morgan</p>
-                                    <p className="text-xs">Winner of CodeMaster Challenge</p>
-                                </div>
-                            </div>
+                            {
+                                latestTwoWinner?.map(winner => <div key={winner?._id} className="border-2">
+                                    <div className="w-[224px] h-[226px]">
+                                        <img src={winner?.userData?.userImage} className="w-full h-full object-cover overflow-hidden" alt="winner image" />
+                                    </div>
+                                    <div className="bg-[#152229] text-white text-center py-2 hover:bg-[#7e85eb] hover:text-black">
+                                        <p className="font-bold">{winner?.examinee}</p>
+                                        <p className="text-xs">Winner of {winner?.contestName}</p>
+                                    </div>
+                                </div>)
+                            }
+
                             
-                            <div className="border-2">
-                                <div className="w-[224px] h-[226px]">
-                                    <img src={winnerImage} className="w-full h-full object-cover overflow-hidden" alt="winner image" />
-                                </div>
-                                <div className="bg-[#152229] text-white text-center py-2 hover:bg-[#7e85eb] hover:text-black">
-                                    <p className="font-bold">Alex Morgan</p>
-                                    <p className="text-xs">Winner of CodeMaster Challenge</p>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
