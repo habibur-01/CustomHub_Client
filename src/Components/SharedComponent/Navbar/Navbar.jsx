@@ -3,13 +3,14 @@ import { FaUserCircle } from "react-icons/fa";
 import logo from '../../../assets/image/logo.png'
 import Container from "../Container/Container";
 import Profile from "../Profile/Profile";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthContext";
 
 
 const Navbar = () => {
     const [isProfileView, setIsProfileView] = useState(false)
     const {user} = useContext(AuthContext)
+    const menuRef = useRef();
 
 
     const navlinks = <> 
@@ -37,7 +38,17 @@ const Navbar = () => {
                 color: isActive? "#646cff":"",
             };
         }}>Sign In</NavLink></li>
+        
     </>
+
+    useEffect(()=>{
+        let handler = (e)=>{
+            if(!menuRef.current.contains(e.target)){
+                setIsProfileView(false);
+            }
+        }
+        document.addEventListener("mousedown", handler)
+    },[])
 
     return (
         <Container>
@@ -53,7 +64,7 @@ const Navbar = () => {
                         {navlinks}
                     </ul>
                 </div>
-                <div className="relative">
+                <div className="relative menu-container" ref={menuRef}>
                     <div onClick={() => setIsProfileView(!isProfileView)}>
                         {
                             user? <div className="h-14 w-14">

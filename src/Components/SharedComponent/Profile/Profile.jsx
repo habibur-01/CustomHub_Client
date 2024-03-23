@@ -21,7 +21,7 @@ const Profile = () => {
     }
 
     return (
-        <div className="border-2 p-4 rounded-md shadow-md w-[300px] ">
+        <div className="border-2 p-4 rounded-md shadow-md w-[300px] menu-container">
             <div className=" py-2 flex flex-row justify-around gap-6 items-center">
                 <div>
 
@@ -34,7 +34,7 @@ const Profile = () => {
                 <div className="space-y-2">
                     <h1 className="text-lg font-medium">{user ? user?.displayName : "Jhon Doe Park"}</h1>
                     <h2>{user ? user?.email : "exampleuser123@gmail.com"}</h2>
-                    <Link to={"/dashboard/myprofile"}><button className="bg-[#646cff] p-3  font-semibold text-white text-base">Edit profile</button></Link>
+                    <Link to={"/dashboard/myprofile"}><button className="bg-[#646cff] p-3 mt-2 font-semibold text-white text-base">Edit profile</button></Link>
                 </div>
             </div>
             <hr className="my-4" />
