@@ -52,7 +52,7 @@ const SubmittedContest = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            res?.length < 0 ? <tr className="row-span-7">
+                            res?.length <= 0 ? <tr className="row-span-7">
                                 <div className="flex h-[700px] justify-center items-center space-y-4">
                                     <h1 className="text-4xl font-bold">There are not any examinee</h1>
                                     <p>Please make any contest first.</p>

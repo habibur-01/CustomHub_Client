@@ -26,7 +26,7 @@ const WinningContest = () => {
                 </div>
                 <div>
                     {
-                        winner?.length < 0 ? <p className="font-bold">You do not win any contest yet.</p> : <p className="font-bold">Your total success: <span>{winner?.length}</span></p>
+                        winner?.length <= 0 ? <p className="font-bold">You do not win any contest yet.</p> : <p className="font-bold">Your total success: <span>{winner?.length}</span></p>
                     }
                     <div>
                         <div className="overflow-x-auto py-10">

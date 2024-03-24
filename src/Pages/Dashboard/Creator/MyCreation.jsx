@@ -48,7 +48,7 @@ const MyCreation = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            createContest?.length < 0 ? <tr className="row-span-7">
+                            createContest?.length <= 0 ? <tr className="row-span-7">
                                 <div className="flex h-[700px] justify-center items-center space-y-4">
                                     <h1 className="text-4xl font-bold">You don not make any  contest</h1>
                                     <p>Please make any contest first.</p>

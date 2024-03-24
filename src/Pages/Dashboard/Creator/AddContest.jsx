@@ -21,15 +21,7 @@ const AddContest = () => {
     // const [contestType, setContestType] = useState('');
     const [selected, setSelected] = useState(people[0])
     
-    // const handleContestTypeChange = (event) => {
-    //     setContestType(event.target.value);
-    // };
-    // const { email, displayName } = user;
-    // console.log(email)
-    // const checkoutService = useLoaderData()
-    // const { room_no, img1, type, rent } = checkoutService;
-    // console.log(checkoutService)
-    // console.log(user)
+
 
     const handleCheckOut = async (e) => {
         e.preventDefault()
@@ -45,7 +37,7 @@ const AddContest = () => {
         const image = await ImgUpload(img)
         const userImage = image?.data?.display_url
 
-        const addContestgData = { contestName, contestType: type, description, taskInstruction, image: userImage, endDate, price, prize, creator: user?.email, status: 'pending', participant: 0 }
+        const addContestgData = { contestName, contestType: type.toLowerCase(), description, taskInstruction, image: userImage, endDate, price, prize, creator: user?.email, status: 'pending', participant: 0 }
         console.log(addContestgData)
 
         await axiosSecure.post("/contest", addContestgData)
@@ -82,20 +74,7 @@ const AddContest = () => {
                     <label className="label">
                             <span className="label-text">Contest Type</span>
                         </label>
-                        {/* <select
-                            className="input input-bordered"
-                            name="room_type"
-                            id="cars"
-                            value={contestType}
-                            onChange={handleContestTypeChange}
-                        >
-                            <option value="">Select Contest Type</option>
-                            <option value="business">Business Contest</option>
-                            <option value="medical">Medical Contest</option>
-                            <option value="article">Article Writing</option>
-                            <option value="gaming">Gaming Contest</option>
-                            <option value="programming">Programming Contest</option>
-                        </select> */}
+                        
                         <div className="absolute mt-8  w-full">
                             <Listbox value={selected} onChange={setSelected}>
                                 <div className="relative mt-1">

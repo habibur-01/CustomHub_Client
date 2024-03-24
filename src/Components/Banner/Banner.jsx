@@ -1,10 +1,31 @@
+import { useState } from 'react';
 import banner from '../../assets/image/contestjpg.jpg';
 import Container from '../SharedComponent/Container/Container';
 import './Banner.css';
 import { FaSearch } from 'react-icons/fa';
+import { axiosSecure } from '../../api/axiosSecure';
+import { Link, useNavigate} from 'react-router-dom';
+
 
 
 const Banner = () => {
+    const [searchQuery, setSearchQuery] = useState('')
+    const [queryData, setQueryData] = useState([])
+    const navigate = useNavigate()
+    console.log(queryData)
+    console.log(searchQuery)
+
+    const handleSearchQuery = async () => {
+        try {
+            const response = await axiosSecure.get(`/contest/?contestType=${searchQuery}`);
+            console.log(response.data); 
+            setQueryData(response.data)
+            navigate("/searchData", { state: { queryData: response.data } });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
     const bgPhoto = {
         backgroundImage: `url(${banner})`,
         backgroundSize: 'cover',
@@ -25,14 +46,14 @@ const Banner = () => {
                         <div className='inline-flex items-center  '><hr className='h-[2px] w-16 m-auto border-none bg-[#9e2cbf]' /><span className='uppercase px-6 font-bold'>Enjoy the ultimate</span> <hr className='h-[2px] w-16 m-auto bg-[#9e2cbf] border-none' /></div>
                         <h1 className='uppercase text-5xl  text-bold'>Expperience of Compititon</h1>
                     </div>
-                    
-                        <div className="w-1/3 inline-flex items-center relative">
-                            <input type="text" name="contest" id="" placeholder="type contest name" className='w-full h-12 px-6 focus:outline-none rounded-full overflow-x-hidden'/>
-                            <div className="absolute right-4">
-                                <FaSearch size={20}/>
-                            </div>
+
+                    <div className="w-1/3 inline-flex items-center relative">
+                        <input onChange={(e) => setSearchQuery(e.target.value.toLowerCase())} type="text" name="contest" id="" placeholder="type contest name" className='w-full h-12 px-6 focus:outline-none rounded-full overflow-x-hidden' />
+                        <div className={`absolute right-4 ${searchQuery.length<=0 ? 'pointer-events-none opacity-10':'cursor-pointer opacity-65'}`} onClick={handleSearchQuery}>
+                            <Link to={"/searchData"} ><FaSearch size={20} /></Link>
                         </div>
-                    
+                    </div>
+
                 </div>
             </div>
         </Container>

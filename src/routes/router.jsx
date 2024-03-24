@@ -19,6 +19,7 @@ import UpdateContest from "../Pages/Dashboard/Creator/UpdateContest";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import ManageContest from "../Pages/Dashboard/Admin/ManageContest";
 import SubmittedContest from "../Pages/Dashboard/Creator/SubmittedContest";
+import SearchData from "../Components/Banner/SearchData/SearchData";
 
 const router = createBrowserRouter([
     {
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
             {
                 path:"/course",
                 element:<Courses/>
+            },
+            {
+                path: "/searchData",
+                element: <SearchData/>
             }
         ]
     },
