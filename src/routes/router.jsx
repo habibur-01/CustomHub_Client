@@ -5,7 +5,7 @@ import Home from "../Pages/Home/Home";
 import Signin from "../Pages/SignIn/Signin";
 import Signup from "../Pages/SignUp/Signup";
 import AllContest from "../Pages/AllContest/AllContest";
-import Courses from "../Pages/Courses/Courses"
+// import Courses from "../Pages/Courses/Courses"
 import ContestDetails from "../Pages/ContestDetails/ContestDetails";
 import Payment from "../Pages/Payment/Payment";
 import Dashboard from "../Pages/Dashboard/Dashboard";
@@ -20,6 +20,7 @@ import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import ManageContest from "../Pages/Dashboard/Admin/ManageContest";
 import SubmittedContest from "../Pages/Dashboard/Creator/SubmittedContest";
 import SearchData from "../Components/Banner/SearchData/SearchData";
+import Contact from "../Pages/Contact/Contact";
 
 const router = createBrowserRouter([
     {
@@ -87,8 +88,8 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path:"/course",
-                element:<Courses/>
+                path:"/contact",
+                element:<Contact/>
             },
             {
                 path: "/searchData",

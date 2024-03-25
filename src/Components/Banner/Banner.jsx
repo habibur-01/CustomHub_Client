@@ -10,16 +10,16 @@ import { Link, useNavigate} from 'react-router-dom';
 
 const Banner = () => {
     const [searchQuery, setSearchQuery] = useState('')
-    const [queryData, setQueryData] = useState([])
+    // const [queryData, setQueryData] = useState([])
     const navigate = useNavigate()
-    console.log(queryData)
-    console.log(searchQuery)
+    // console.log(queryData)
+    // console.log(searchQuery)
 
     const handleSearchQuery = async () => {
         try {
             const response = await axiosSecure.get(`/contest/?contestType=${searchQuery}`);
-            console.log(response.data); 
-            setQueryData(response.data)
+            // console.log(response.data); 
+            // setQueryData(response.data)
             navigate("/searchData", { state: { queryData: response.data } });
         } catch (error) {
             console.error('Error fetching data:', error);

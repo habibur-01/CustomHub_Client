@@ -1,0 +1,11 @@
+.contact {
+    background: transparent;
+    backdrop-filter: blur(3px);
+
+}
+input{
+    width: 100%;
+    height: 45px;
+    border-radius: 10px;
+    padding-left: 16px;
+}
