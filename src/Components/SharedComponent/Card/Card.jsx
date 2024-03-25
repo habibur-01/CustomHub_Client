@@ -14,7 +14,7 @@ const Card = ({ contest }) => {
             <div className="py-6 text-center px-6">
                 <div className="inline-Flex items-center">
                     <h1 className="text-xl font-bold ">{contestName} </h1>
-                    <span className="text-xs border-[1px] w-6 mx-auto flex justify-center items-center"><FaUser size={10} /> 10</span>
+                    <span className="text-xs border-[1px] w-6 mx-auto flex justify-center items-center"><FaUser size={10} /> {participant}</span>
                 </div>
                 <p className="text-sm mt-2">
                     {

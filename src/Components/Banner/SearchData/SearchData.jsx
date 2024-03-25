@@ -1,12 +1,13 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "../../SharedComponent/Container/Container";
 import Card from "../../SharedComponent/Card/Card";
-import { MdOutlineHome } from "react-icons/md";
+import { MdHome } from "react-icons/md";
 
 
 const SearchData = () => {
     const location = useLocation()
     const searchingData = location.state?.queryData
+    const path = location.state?.queryData[0].contestType
     console.log(location)
     return (
         <div>
@@ -16,8 +17,8 @@ const SearchData = () => {
                     <p className="text-lg font-light">Please write valid one.</p>
                 </div> : <Container>
                     <div className="py-6 inline-flex gap-6">
-                        <MdOutlineHome size={22} />
-                        <p>/{location.state?.queryData[0].contestType}</p>
+                        <Link to={"/"}><MdHome size={22} /></Link>
+                        <Link to={`/contest/:${path}`}><p>/{path}</p></Link>
                     </div>
                     <div className="grid lg:grid-cols-4 gap-6 my-10">
                         {

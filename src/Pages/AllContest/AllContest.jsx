@@ -2,13 +2,13 @@
 import { useEffect, useState } from "react";
 import Container from "../../Components/SharedComponent/Container/Container";
 import { axiosSecure } from "../../api/axiosSecure";
-import Card from "../../Components/SharedComponent/Card/Card";
-// import SectionHeader from "../../Components/SharedComponent/Header/SectionHeader";
+import CategoryTab from "../../Components/CategoryTab/CategoryTab";
 
 
 const AllContest = () => {
     const [contestData, setContestData] = useState([])
     const [confirmedData, setConfirmedData] = useState([])
+    
 
     useEffect(() => {
         axiosSecure.get("/contest")
@@ -29,11 +29,10 @@ const AllContest = () => {
         <div>
             <Container>
                 <h1 className="text-2xl font-bold py-4 border-b-4 mb-6">All Contest</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6 mx-5">
-                    {
-                        confirmedData?.map(contest => <Card key={contest._id} contest={contest}/>)
-                    }
+                <div className="mb-8">
+                    <CategoryTab verifiedContest={confirmedData}/>
                 </div>
+              
             </Container>
 
         </div>
