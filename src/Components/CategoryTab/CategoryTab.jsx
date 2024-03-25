@@ -5,20 +5,20 @@ import { useState } from "react";
 import SelectedTab from "../SelectedTab/SelectedTab";
 import Card from "../SharedComponent/Card/Card";
 import { PropTypes } from "prop-types";
-
+import "./style.css"
 
 
 const CategoryTab = ({ verifiedContest }) => {
     const [tabIndex, setTabIndex] = useState(0)
     
 
-    console.log(location)
+    // console.log(location)
     
     return (
         <div>
             <Container>
                 <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-                    <TabList>
+                    <TabList className="border-none">
                         <Tab>All Contest</Tab>
                         <Tab>Programming</Tab>
                         <Tab>Technology</Tab>

@@ -6,13 +6,19 @@ import toast from "react-hot-toast";
 
 const ManageContest = () => {
     const { contestData } = useContext(AuthContext)
+    const [allContest, setAllcontest] = useState(contestData)
     const [isconfirmed, setIsConfirmed] = useState(false)
 
     const handleContestDelete = (id) => {
         axiosSecure.delete(`/contest/${id}`)
             .then((response) => {
                 console.log('Item deleted successfully', response);
-                toast('Item deleted successfully')
+                if(response?.data?.deletedCound > 0){
+                    const remaining = contestData?.filter(data => data._id !== id)
+                    setAllcontest(remaining)
+                    toast('Item deleted successfully')
+                }
+                
             })
             .catch((error) => {
                 console.error('Error deleting item:', error);
@@ -63,12 +69,12 @@ const ManageContest = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            contestData?.length <= 0 ? <tr className="row-span-7">
+                            allContest?.length <= 0 ? <tr className="row-span-7">
                                 <div className="flex h-[700px] justify-center items-center space-y-4">
                                     <h1 className="text-4xl font-bold">You don not make any  contest</h1>
                                     <p>Please make any contest first.</p>
                                 </div>
-                            </tr> : contestData?.map(data => <tr key={data._id}>
+                            </tr> : allContest?.map(data => <tr key={data._id}>
                                 <th>
                                     <label>
                                         <input type="checkbox" className="checkbox" />

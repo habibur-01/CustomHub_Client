@@ -1,14 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import win from "../../assets/image/win.jpg";
 import Container from "../../Components/SharedComponent/Container/Container";
 import { axiosSecure } from "../../api/axiosSecure";
+import { AuthContext } from "../../Provider/AuthContext";
+import toast from "react-hot-toast";
 
 const ContestDetails = () => {
     // const { _id } = useParams();
+    const { user } = useContext(AuthContext)
     const location = useLocation();
     const [timeDifference, setTimeDifference] = useState();
-    
+    const [avoidDuplicate, setAvoidDuplicate] = useState([])
+    console.log(avoidDuplicate)
+
     // State for remaining time
     const [remainingTime, setRemainingTime] = useState(null);
     const [nextDate, setNextDate] = useState(null)
@@ -23,10 +28,10 @@ const ContestDetails = () => {
             const now = new Date();
             const difference = regEndDate - now;
             setTimeDifference(difference)
-             // Calculate next date
-             const nextDay = new Date(endDate);
-             nextDay.setDate(endDate.getDate() + 1);
-             setNextDate(nextDay);
+            // Calculate next date
+            const nextDay = new Date(endDate);
+            nextDay.setDate(endDate.getDate() + 1);
+            setNextDate(nextDay);
 
             if (difference > 0) {
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -47,10 +52,21 @@ const ContestDetails = () => {
         return () => clearInterval(interval);
     }, [location]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const res = axiosSecure.get(`/winner/?contestName=${location?.state?.contestName}`)
         setWinnerData(res)
-    },[location?.state?.contestName])
+
+        axiosSecure.get('/payment')
+            .then(res => {
+                const filterData = res.data?.find(data => data.contestName === location?.state?.contestName && data.email === user.email);
+                setAvoidDuplicate(filterData);
+            })
+            .catch(error => {
+                console.error("Error fetching avoidDuplicate data:", error);
+            });
+
+
+    }, [location?.state?.contestName, user.email])
 
     return (
         <Container>
@@ -73,13 +89,13 @@ const ContestDetails = () => {
                         <div className='mt-8 w-[300px] h-[200px]  mr-4'>
                             {/* <h1 className='text-xl mt-4 font-medium'>Give your reviews</h1> */}
                             {
-                                timeDifference < 0 ? <div>
+                                timeDifference <= 0 ? <div>
                                     <h1 className="text-2xl font-bold">Winner is--</h1>
                                     <div className="mt-8 w-[300px] h-[200px] border-2 mr-4">
                                         <img src={location?.state?.image} className="w-full h-full object-cover overflow-hidden rounded-md" alt="Contest image" />
                                     </div>
                                     <div>
-                                        <p>{winnerData?.examinee}</p>
+                                        <p>{`${winnerData?.examinee} || ''`}</p>
                                     </div>
                                 </div> : ""
                             }
@@ -91,7 +107,7 @@ const ContestDetails = () => {
                     <div className='md:m-3'>
                         <div className='bg-[#151515] text-white mx-2 md:ml-0 mt-5 rounded-xl px-8 py-10 relative'>
                             <div className="absolute top-0 right-0">
-                                {remainingTime  && (
+                                {remainingTime && (
                                     <p className='text-base p-2 bg-red-400'> {remainingTime.days}d : {remainingTime.hours}h : {remainingTime.minutes}m : {remainingTime.seconds}s</p>
                                 )}
                             </div>
@@ -101,17 +117,28 @@ const ContestDetails = () => {
                                     <p className='text-base '>Contest Name:{location?.state?.contestName}</p>
                                     <p className='text-base '>Contest Prize: {location?.state?.prize} $</p>
                                     <p className='text-base '>Contest Price: {location?.state?.price} $</p>
-                                    
+
                                     <p className='text-base '>End Date: {location?.state?.endDate}</p>
 
                                     <p className='text-base '>Participant: {location?.state?.participant}</p>
                                 </div>
                                 <div>
                                     {
-                                        timeDifference<0 ? <button disabled={nextDate} className="bg-[#646cff] px-3 py-2 mt-4 w-full h-14 font-semibold text-white text-base">Open</button>:
-                                        <Link to={"/payment"} state={{ price: location?.state?.price, id: location?.state?._id, contestName: location?.state?.contestName }}><button className="bg-[#646cff] px-3 py-2 mt-4 w-full h-14 font-semibold text-white text-base">Registration</button></Link>
+                                        timeDifference <= 0 ? <button disabled={nextDate} className="bg-[#646cff] px-3 py-2 mt-4 w-full h-14 font-semibold text-white text-base">Open</button> :
+                                            <div>
+                                                {
+                                                    avoidDuplicate ?
+                                                        <div>
+                                                            <button onClick={()=>toast('You are already registered this contest')} className={`bg-[#646cff] px-3 py-2 mt-4 w-full opacity-50 h-14 font-semibold text-white text-base `}>Registration</button>
+                                                        </div> :
+                                                        <div>
+                                                            <Link to={"/payment"} state={{ price: location?.state?.price, id: location?.state?._id, contestName: location?.state?.contestName }}><button className={`bg-[#646cff] px-3 py-2 mt-4 w-full h-14 font-semibold text-white text-base `}>Registration</button></Link>
+                                                        </div>
+                                                }
+                                            </div>
+
                                     }
-                                    
+
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,9 @@
+.react-tabs__tab--selected {
+    /* Add your styles for active tab here */
+    background-color: #eeeeee;
+    color: #333;
+    border: none;
+    font-weight: 600;
+    
+
+  }

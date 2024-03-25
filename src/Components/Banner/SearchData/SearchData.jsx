@@ -8,7 +8,7 @@ const SearchData = () => {
     const location = useLocation()
     const searchingData = location.state?.queryData
     const path = location.state?.queryData[0].contestType
-    console.log(location)
+    // console.log(location)
     return (
         <div>
             {
@@ -18,7 +18,7 @@ const SearchData = () => {
                 </div> : <Container>
                     <div className="py-6 inline-flex gap-6">
                         <Link to={"/"}><MdHome size={22} /></Link>
-                        <Link to={`/contest/:${path}`}><p>/{path}</p></Link>
+                        <Link to={`/contest`}><p>/{path}</p></Link>
                     </div>
                     <div className="grid lg:grid-cols-4 gap-6 my-10">
                         {

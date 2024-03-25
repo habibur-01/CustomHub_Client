@@ -11,7 +11,7 @@ const MyCreation = () => {
 
     useEffect(() => {
         const res = contestData.filter(data => data?.creator === user?.email)
-        console.log(res)
+        // console.log(res)
         setCreateContest(res)
 
     }, [contestData, user?.email])
@@ -20,7 +20,12 @@ const MyCreation = () => {
         axiosSecure.delete(`/contest/${id}`)
             .then((response) => {
                 console.log('Item deleted successfully',response);
-                toast('Contest deleted successfully')
+                if(response.data?.deletedCount> 0){
+                    const remaining = createContest?.filter(data=> data._id !== id)
+                    setCreateContest(remaining)
+                    toast('Contest deleted successfully')
+                }
+                
             })
             .catch((error) => {
                 console.error('Error deleting item:', error);

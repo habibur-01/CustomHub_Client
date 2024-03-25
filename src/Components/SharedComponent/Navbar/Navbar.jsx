@@ -64,7 +64,7 @@ const Navbar = () => {
                         {navlinks}
                     </ul>
                 </div>
-                <div className="relative menu-container" ref={menuRef}>
+                <div className="relative menu-container cursor-pointer" ref={menuRef}>
                     <div onClick={() => setIsProfileView(!isProfileView)}>
                         {
                             user? <div className="h-14 w-14">

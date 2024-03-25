@@ -14,13 +14,13 @@ const people = [
     { name: 'Programming' },
     { name: 'Design' },
     { name: 'Medical' },
-  ]
+]
 
 const AddContest = () => {
-    const { user } = useContext(AuthContext)
+    const { user, contestData } = useContext(AuthContext)
     // const [contestType, setContestType] = useState('');
     const [selected, setSelected] = useState(people[0])
-    
+
 
 
     const handleCheckOut = async (e) => {
@@ -39,20 +39,26 @@ const AddContest = () => {
 
         const addContestgData = { contestName, contestType: type.toLowerCase(), description, taskInstruction, image: userImage, endDate, price, prize, creator: user?.email, status: 'pending', participant: 0 }
         console.log(addContestgData)
+        const filter = contestData?.find(data => data.contestName.toLowerCase() === contestName.toLowerCase())
+        console.log(filter)
+        if (!filter) {
+            await axiosSecure.post("/contest", addContestgData)
+                .then(response => {
+                    console.log('Contest added successfully:', response.data);
 
-        await axiosSecure.post("/contest", addContestgData)
-            .then(response => {
-                console.log('Contest added successfully:', response.data);
+                    if (response?.data?.acknowledged === true) {
+                        toast('Contest added successfully')
 
-                if (response?.data?.acknowledged === true) {
-                    toast('Contest added successfully')
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding user:', error);
+                    toast('Error adding user')
+                });
+        }
+        toast('Contest name already exist')
 
-                }
-            })
-            .catch(error => {
-                console.error('Error adding user:', error);
-                toast('Error adding user')
-            });
+
 
 
     }
@@ -71,10 +77,10 @@ const AddContest = () => {
 
 
                     <div className="form-control relative">
-                    <label className="label">
+                        <label className="label">
                             <span className="label-text">Contest Type</span>
                         </label>
-                        
+
                         <div className="absolute mt-8  w-full">
                             <Listbox value={selected} onChange={setSelected}>
                                 <div className="relative mt-1">
@@ -126,7 +132,7 @@ const AddContest = () => {
                             </Listbox>
                         </div>
                     </div>
-                    
+
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Contest Price</span>
